@@ -1,2 +1,2 @@
 # chart-ccpay
-Product charts for pay, fees and bulkscan payments components
+Product charts for pay, fees and bulk-scan payments components
