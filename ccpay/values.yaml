@@ -1,0 +1,71 @@
+ccpay:
+  postgresql:
+    enabled: true
+
+payment-api:
+  java:
+    ingressHost: ""
+    releaseNameOverride: "{{ .Release.Name }}-payment-api"
+    secrets:
+      PCI_PAL_ACCOUNT_ID_CMC:
+        secretRef: pci-account-details
+        key: cmcAccountId
+      PCI_PAL_ACCOUNT_ID_PROBATE:
+        secretRef: pci-account-details
+        key: probateAccountId
+      PCI_PAL_ACCOUNT_ID_DIVORCE:
+        secretRef: pci-account-details
+        key: divorceAccountId
+      PCI_PAL_API_URL:
+        secretRef: pci-account-details
+        key: pci-pal-api-url
+      PCI_PAL_API_KEY:
+        secretRef: pci-account-details
+        key: pci-pal-api-key
+      GOV_PAY_ACCOUNT_PROBATE:
+        secretRef: govpay-account-details
+        key: probate-account-id
+      GOV_PAY_ACCOUNT_DIVORCE:
+        secretRef: govpay-account-details
+        key: divorce-account-id
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://{{ tpl .Values.global.postgresqlHostName $}}:5432/payment"
+      SPRING_DATASOURCE_USERNAME: "{{ .Values.global.postgresqlUsername}}"
+      SPRING_DATASOURCE_PASSWORD: "{{ .Values.global.postgresqlPassword}}"
+      SPRING_LIQUIBASE_ENABLED: true
+
+      #SPRING_PROFILES_ACTIVE: "liberataMock,callbackMock,ccdMock"
+      #CALLBACK_PAYMENTS_CUTOFF_TIME_IN_MINUTES: 0
+
+      RUN_DB_MIGRATION_ON_STARTUP: 'true'
+      S2S_URL: "{{ tpl .Values.global.s2sUrl $}}"
+
+      AUTH_PROVIDER_SERVICE_CLIENT_BASEURL: "{{ tpl .Values.global.s2sUrl $}}"
+
+      AUTH_IDAM_CLIENT_BASEURL: "{{ .Values.global.idamApiUrl }}"
+      #FEES_REGISTER_URL: http://fees-register-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+      #PAYBUBBLE_HOME_URL: https://ccpay-bubble-frontend-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+      #CORE_CASE_DATA_API_URL: http://ccd-data-store-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+
+      #to do - update the url
+      PCI_PAL_CALLBACK_URL: https://core-api-mgmt-hmctsdemo.azure-api.net/telephony-api/telephony/callback
+
+global:
+  devMode: true
+  postgresqlUsername: hmcts
+  postgresqlPassword: hmcts
+  s2sUrl: "{{ .Release.Name }}-s2s"
+  postgresqlHostName: "{{ .Release.Name }}-postgresql"
+postgresql:
+  persistence:
+    enabled: false
+  resources:
+    requests:
+      cpu: 25m
+  #initdbScripts:
+    #init.sql: |-
+      #CREATE DATABASE "" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+
+  postgresqlUsername: hmcts
+  postgresqlPassword: hmcts
+  postgresqlDatabase: payment
