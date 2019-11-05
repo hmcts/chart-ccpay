@@ -5,7 +5,7 @@ ccpay:
 payment-api:
   java:
     ingressHost: ""
-    releaseNameOverride: "{{ .Release.Name }}-payment-api"
+      releaseNameOverride: "{{ .Release.Name }}-payment-api"
     secrets:
       PCI_PAL_ACCOUNT_ID_CMC:
         secretRef: pci-account-details

@@ -11,7 +11,7 @@ AKS_CLUSTER := cnp-aks-cluster
 setup:
 	az account set --subscription ${ACR_SUBSCRIPTION}
 	az configure --defaults acr=${ACR}
-	az acr helm repo add
+	az acr helm repo add --name ${ACR}
 	az aks get-credentials --resource-group ${AKS_RESOURCE_GROUP} --name ${AKS_CLUSTER}
 
 clean:
