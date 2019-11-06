@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := all
 CHART := ccpay
 RELEASE := chart-${CHART}-release
-NAMESPACE := chart-tests
+NAMESPACE := fees-pay
 TEST := ${RELEASE}-test-service
 ACR := hmctspublic
 ACR_SUBSCRIPTION := DCD-CNP-DEV
