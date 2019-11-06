@@ -50,6 +50,14 @@ payment-api:
       #to do - update the url
       PCI_PAL_CALLBACK_URL: https://core-api-mgmt-hmctsdemo.azure-api.net/telephony-api/telephony/callback
 
+rpe-service-auth-provider:
+  java:
+    ingressHost: ""
+    image: hmctspublic.azurecr.io/rpe/service-auth-provider:latest
+    releaseNameOverride: "{{ .Release.Name }}-s2s"
+    environment:
+      TESTING_SUPPORT_ENABLED: 'true'
+      MICROSERVICEKEYS_API_GW: AAAAAAAAAAA
 global:
   devMode: true
   postgresqlUsername: hmcts

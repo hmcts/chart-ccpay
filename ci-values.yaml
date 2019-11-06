@@ -35,3 +35,5 @@ payment-api:
       GOV_PAY_AUTH_KEY_PROBATE_FRONTEND: la0ohpqa9er1bub2hddieeesc6sabbbqn4smkkve7s9ailn3n9d3hbnhc3
       #TODO use CCD Chart instead
       CORE_CASE_DATA_API_URL: "http://ccd-data-store-api-aat.service.core-compute-aat.internal"
+global:
+  idamApiUrl: idam-api.aat.platform.hmcts.net
