@@ -17,7 +17,7 @@ dependencies:
 #      repository: '@hmctspublic'
 #
   - name: rpe-service-auth-provider
-    version: ~0.2.4
+    version: ~0.2.5
     repository: '@hmctspublic'
 
 #  - name: bulk-scanning
