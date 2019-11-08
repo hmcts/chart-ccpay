@@ -58,10 +58,38 @@ rpe-service-auth-provider:
     environment:
       TESTING_SUPPORT_ENABLED: 'true'
       MICROSERVICEKEYS_API_GW: AAAAAAAAAAA
+
+fees-register-api:
+  java:
+    ingressHost: ""
+    releaseNameOverride: "{{ .Release.Name }}-fee-register"
+    environment:
+      POSTGRES_HOST: "{{ .Release.Name }}-postgresql"
+      POSTGRES_NAME: "{{ .Values.postgresql.postgresqlDatabase}}"
+      POSTGRES_USERNAME: "{{ .Values.postgresql.postgresqlUsername}}"
+      POSTGRES_PASSWORD: "{{ .Values.postgresql.postgresqlPassword}}"
+      POSTGRES_CONNECTION_OPTIONS: "?sslmode=allow"
+      SPRING_LIQUIBASE_ENABLED: true
+      IDAM_CLIENT_BASE_URL: "{{ .Values.global.idamApiUrl }}"
+
+ccpay-bulkscanning-api:
+  java:
+    image: "hmctspublic.azurecr.io/ccpay/bulkscanning-api:latest"
+    ingressHost: ""
+    releaseNameOverride: "{{ .Release.Name }}-bulk-scanning"
+    environment:
+      AUTH_PROVIDER_SERVICE_CLIENT_BASEURL: "{{ tpl .Values.global.s2sUrl $}}"
+      AUTH_IDAM_CLIENT_BASEURL: "{{ .Values.global.idamApiUrl }}"
+
+ccpay-bubble-frontend:
+  nodejs:
+    image: hmctspublic.azurecr.io/ccpay/bubble-frontend:latest
+    releaseNameOverride: "{{ .Release.Name }}-ccpay-bubble"
+
 global:
   devMode: true
-  postgresqlUsername: hmcts
-  postgresqlPassword: hmcts
+  postgresqlUsername: payment
+  postgresqlPassword: payment
   s2sUrl: "{{ .Release.Name }}-s2s"
   postgresqlHostName: "{{ .Release.Name }}-postgresql"
 postgresql:
