@@ -62,7 +62,7 @@ global:
   devMode: true
   postgresqlUsername: hmcts
   postgresqlPassword: hmcts
-  s2sUrl: "{{ .Release.Name }}-s2s"
+  s2sUrl: "http://{{ .Release.Name }}-s2s"
   postgresqlHostName: "{{ .Release.Name }}-postgresql"
 postgresql:
   persistence:
