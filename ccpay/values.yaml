@@ -66,14 +66,13 @@ fees-register-api:
     environment:
       POSTGRES_HOST: "{{ .Release.Name }}-postgresql"
       POSTGRES_NAME: "{{ .Values.postgresql.postgresqlDatabase}}"
-      POSTGRES_USERNAME: "{{ .Values.postgresql.postgresqlUsername}}"
-      POSTGRES_PASSWORD: "{{ .Values.postgresql.postgresqlPassword}}"
+      POSTGRES_USERNAME: "{{ .Values.global.postgresqlUsername }}"
+      POSTGRES_PASSWORD: "{{ .Values.global.postgresqlPassword }}"
       POSTGRES_CONNECTION_OPTIONS: "?sslmode=allow"
       SPRING_LIQUIBASE_ENABLED: true
       IDAM_CLIENT_BASE_URL: "{{ .Values.global.idamApiUrl }}"
 
 ccpay-bulkscanning-api:
-  java:
     image: "hmctspublic.azurecr.io/ccpay/bulkscanning-api:latest"
     ingressHost: ""
     releaseNameOverride: "{{ .Release.Name }}-bulk-scanning"
