@@ -53,9 +53,8 @@ payment-api:
       AUTH_PROVIDER_SERVICE_CLIENT_BASEURL: "{{ tpl .Values.global.s2sUrl $}}"
 
       AUTH_IDAM_CLIENT_BASEURL: "{{ .Values.global.idamApiUrl }}"
-      #FEES_REGISTER_URL: http://fees-register-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-      #PAYBUBBLE_HOME_URL: https://ccpay-bubble-frontend-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
-      #CORE_CASE_DATA_API_URL: http://ccd-data-store-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+      FEES_REGISTER_URL: "http://{{ .Release.Name }}-fee-register"
+      CORE_CASE_DATA_API_URL: "{{ .Values.global.ccdDataStoreApiUrl }}"
 
       #to do - update the url
       PCI_PAL_CALLBACK_URL: https://core-api-mgmt-hmctsdemo.azure-api.net/telephony-api/telephony/callback
