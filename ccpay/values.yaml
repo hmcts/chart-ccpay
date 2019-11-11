@@ -66,10 +66,13 @@ fees-register-api:
     releaseNameOverride: "{{ .Release.Name }}-fee-register"
     environment:
       SPRING_DATASOURCE_URL: "jdbc:postgresql://{{ tpl .Values.global.postgresqlHostName $}}:5432/fees-register"
-      POSTGRES_USERNAME: "{{ .Values.global.postgresqlUsername }}"
-      POSTGRES_PASSWORD: "{{ .Values.global.postgresqlPassword }}"
-      POSTGRES_CONNECTION_OPTIONS:
-      POSTGRES_HOST:
+      SPRING_DATASOURCE_USERNAME: "{{ .Values.global.postgresqlUsername }}"
+      SPRING_DATASOURCE_PASSWORD: "{{ .Values.global.postgresqlPassword }}"
+      POSTGRES_USERNAME: ""
+      POSTGRES_PASSWORD: ""
+      POSTGRES_NAME: ""
+      POSTGRES_CONNECTION_OPTIONS: ""
+      POSTGRES_HOST: ""
       SPRING_LIQUIBASE_ENABLED: true
       IDAM_CLIENT_BASE_URL: "{{ .Values.global.idamApiUrl }}"
 
@@ -89,7 +92,6 @@ ccpay-bubble-frontend:
     image: hmctspublic.azurecr.io/ccpay/bubble-frontend:latest
     releaseNameOverride: "{{ .Release.Name }}-ccpay-bubble"
     environment:
-      APPINSIGHTS_INSTRUMENTATIONKEY:
       APPINSIGHTS_INSTRUMENTATIONKEY:
       CCD_URL: "{{ .Values.global.ccdDataStoreApiUrl }}"
       CCPAY_BULKSCAN_API_URL: "http://{{ .Release.Name }}-bulk-scanning"
