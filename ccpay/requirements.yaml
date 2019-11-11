@@ -15,7 +15,7 @@ dependencies:
     condition: ccpay.ccpay-bubble-frontend.enabled
 
   - name: fees-register-api
-    version: ~0.0.6
+    version: ~0.0.7
     repository: '@hmctspublic'
     condition: ccpay.fees-register-api.enabled
 
