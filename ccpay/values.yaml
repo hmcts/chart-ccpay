@@ -64,21 +64,21 @@ fees-register-api:
     ingressHost: ""
     releaseNameOverride: "{{ .Release.Name }}-fee-register"
     environment:
-      POSTGRES_HOST: "{{ .Release.Name }}-postgresql"
-      POSTGRES_NAME: "{{ .Values.postgresql.postgresqlDatabase}}"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://{{ tpl .Values.global.postgresqlHostName $}}:5432/fees-register"
       POSTGRES_USERNAME: "{{ .Values.global.postgresqlUsername }}"
       POSTGRES_PASSWORD: "{{ .Values.global.postgresqlPassword }}"
-      POSTGRES_CONNECTION_OPTIONS: "?sslmode=allow"
+      POSTGRES_CONNECTION_OPTIONS:
+      POSTGRES_HOST:
       SPRING_LIQUIBASE_ENABLED: true
       IDAM_CLIENT_BASE_URL: "{{ .Values.global.idamApiUrl }}"
 
 ccpay-bulkscanning-api:
-    image: "hmctspublic.azurecr.io/ccpay/bulkscanning-api:latest"
-    ingressHost: ""
-    releaseNameOverride: "{{ .Release.Name }}-bulk-scanning"
-    environment:
-      AUTH_PROVIDER_SERVICE_CLIENT_BASEURL: "{{ tpl .Values.global.s2sUrl $}}"
-      AUTH_IDAM_CLIENT_BASEURL: "{{ .Values.global.idamApiUrl }}"
+  image: "hmctspublic.azurecr.io/ccpay/bulkscanning-api:latest"
+  ingressHost: ""
+  releaseNameOverride: "{{ .Release.Name }}-bulk-scanning"
+  environment:
+    AUTH_PROVIDER_SERVICE_CLIENT_BASEURL: "{{ tpl .Values.global.s2sUrl $}}"
+    AUTH_IDAM_CLIENT_BASEURL: "{{ .Values.global.idamApiUrl }}"
 
 ccpay-bubble-frontend:
   nodejs:
@@ -87,9 +87,9 @@ ccpay-bubble-frontend:
 
 global:
   devMode: true
-  postgresqlUsername: payment
-  postgresqlPassword: payment
-  s2sUrl: "{{ .Release.Name }}-s2s"
+  postgresqlUsername: hmcts
+  postgresqlPassword: hmcts
+  s2sUrl: "http://{{ .Release.Name }}-s2s"
   postgresqlHostName: "{{ .Release.Name }}-postgresql"
 postgresql:
   persistence:
@@ -97,9 +97,10 @@ postgresql:
   resources:
     requests:
       cpu: 25m
-  #initdbScripts:
-    #init.sql: |-
-      #CREATE DATABASE "" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+  initdbScripts:
+    init.sql: |-
+      CREATE DATABASE "fees-register" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+      CREATE DATABASE "bspayment" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
 
   postgresqlUsername: hmcts
   postgresqlPassword: hmcts
