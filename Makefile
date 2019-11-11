@@ -13,6 +13,9 @@ setup:
 	az aks get-credentials --resource-group ${AKS_RESOURCE_GROUP} --name ${AKS_CLUSTER} --subscription DCD-CNP-DEV
 	helm dependency update ${CHART}
 
+depUpdate:
+	helm dependency update ${CHART}
+
 clean:
 	-helm delete --purge ${RELEASE}
 	-kubectl delete pod ${TEST} -n ${NAMESPACE}

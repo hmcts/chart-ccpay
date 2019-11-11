@@ -2,6 +2,7 @@ dependencies:
   - name: payment-api
     version: ~0.1.6
     repository: '@hmctspublic'
+    condition: ccpay.payment-api.enabled
 
   - name: postgresql
     version: ~6.3.5
@@ -11,18 +12,23 @@ dependencies:
   - name: ccpay-bubble-frontend
     version: ~0.1.0
     repository: '@hmctspublic'
+    condition: ccpay.ccpay-bubble-frontend.enabled
 
   - name: fees-register-api
     version: ~0.0.6
     repository: '@hmctspublic'
+    condition: ccpay.fees-register-api.enabled
 
   - name: rpe-service-auth-provider
     version: ~0.2.5
     repository: '@hmctspublic'
+    condition: ccpay.rpe-service-auth-provider.enabled
 
   - name: ccpay-bulkscanning-api
-    version: ~0.0.4
+    version: ~0.0.5
     repository: '@hmctspublic'
+    condition: ccpay.ccpay-bulkscanning-api.enabled
+
 #
 #  - name: ccd
 #     version: ~6.3.5

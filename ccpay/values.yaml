@@ -1,6 +1,16 @@
 ccpay:
   postgresql:
     enabled: true
+  payment-api:
+    enabled: true
+  fees-register-api:
+    enabled: true
+  rpe-service-auth-provider:
+    enabled: true
+  ccpay-bubble-frontend:
+    enabled: true
+  ccpay-bulkscanning-api:
+    enabled: true
 
 payment-api:
   java:
@@ -58,6 +68,7 @@ rpe-service-auth-provider:
     environment:
       TESTING_SUPPORT_ENABLED: 'true'
       MICROSERVICEKEYS_API_GW: AAAAAAAAAAA
+      MICROSERVICEKEYS_CCPAY_BUBBLE: BBBBBBBBBB
 
 fees-register-api:
   java:
@@ -65,26 +76,42 @@ fees-register-api:
     releaseNameOverride: "{{ .Release.Name }}-fee-register"
     environment:
       SPRING_DATASOURCE_URL: "jdbc:postgresql://{{ tpl .Values.global.postgresqlHostName $}}:5432/fees-register"
-      POSTGRES_USERNAME: "{{ .Values.global.postgresqlUsername }}"
-      POSTGRES_PASSWORD: "{{ .Values.global.postgresqlPassword }}"
-      POSTGRES_CONNECTION_OPTIONS:
-      POSTGRES_HOST:
+      SPRING_DATASOURCE_USERNAME: "{{ .Values.global.postgresqlUsername }}"
+      SPRING_DATASOURCE_PASSWORD: "{{ .Values.global.postgresqlPassword }}"
+      POSTGRES_USERNAME: ""
+      POSTGRES_PASSWORD: ""
+      POSTGRES_NAME: ""
+      POSTGRES_CONNECTION_OPTIONS: ""
+      POSTGRES_HOST: ""
       SPRING_LIQUIBASE_ENABLED: true
       IDAM_CLIENT_BASE_URL: "{{ .Values.global.idamApiUrl }}"
 
 ccpay-bulkscanning-api:
-  image: "hmctspublic.azurecr.io/ccpay/bulkscanning-api:latest"
-  ingressHost: ""
-  releaseNameOverride: "{{ .Release.Name }}-bulk-scanning"
-  environment:
-    AUTH_PROVIDER_SERVICE_CLIENT_BASEURL: "{{ tpl .Values.global.s2sUrl $}}"
-    AUTH_IDAM_CLIENT_BASEURL: "{{ .Values.global.idamApiUrl }}"
+  java:
+    ingressHost: ""
+    releaseNameOverride: "{{ .Release.Name }}-bulk-scanning"
+    environment:
+      AUTH_PROVIDER_SERVICE_CLIENT_BASEURL: "{{ tpl .Values.global.s2sUrl $}}"
+      AUTH_IDAM_CLIENT_BASEURL: "{{ .Values.global.idamApiUrl }}"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://{{ tpl .Values.global.postgresqlHostName $}}:5432/bspayment"
+      POSTGRES_USERNAME: "{{ .Values.global.postgresqlUsername }}"
+      POSTGRES_PASSWORD: "{{ .Values.global.postgresqlPassword }}"
 
 ccpay-bubble-frontend:
   nodejs:
     image: hmctspublic.azurecr.io/ccpay/bubble-frontend:latest
     releaseNameOverride: "{{ .Release.Name }}-ccpay-bubble"
-
+    environment:
+      APPINSIGHTS_INSTRUMENTATIONKEY:
+      CCD_URL: "{{ .Values.global.ccdDataStoreApiUrl }}"
+      CCPAY_BULKSCAN_API_URL: "http://{{ .Release.Name }}-bulk-scanning"
+      FEE_JURISDICTION_URL: "http://{{ .Release.Name }}-fee-register/jurisdictions"
+      FEE_REGISTRATION_URL: "http://{{ .Release.Name }}-fee-register/fees-register/fees"
+      IDAM_API_URL: "{{ .Values.global.idamApiUrl }}"
+      IDAM_AUTHENTICATION_WEB_URL: "{{ .Values.global.idamWebUrl }}"
+      PAYHUB_API_URL: "http://{{ .Release.Name }}-payment-api"
+      S2S_KEY: BBBBBBBBBB
+      S2S_URL: "http://{{ .Release.Name }}-s2s"
 global:
   devMode: true
   postgresqlUsername: hmcts
