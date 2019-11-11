@@ -112,6 +112,13 @@ ccpay-bulkscanning-api:
       POSTGRES_PASSWORD: "{{ .Values.global.postgresqlPassword }}"
 
 ccpay-bubble-frontend:
+  idam-pr:
+    redirect_uris:
+      pay-bubble:
+        - "{{ .Values.global.bubbleUrl }}/oauth2/callback"
+  ccpayfrontend:
+    idampr:
+      enabled: true
   nodejs:
     image: hmctspublic.azurecr.io/ccpay/bubble-frontend:latest
     releaseNameOverride: "{{ .Release.Name }}-ccpay-bubble"
