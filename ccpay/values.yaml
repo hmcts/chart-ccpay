@@ -1,6 +1,16 @@
 ccpay:
   postgresql:
     enabled: true
+  payment-api:
+    enabled: true
+  fees-register-api:
+    enabled: true
+  rpe-service-auth-provider:
+    enabled: true
+  ccpay-bubble-frontend:
+    enabled: true
+  ccpay-bulkscanning-api:
+    enabled: true
 
 payment-api:
   java:
