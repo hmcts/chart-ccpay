@@ -12,32 +12,51 @@ ccpay:
   ccpay-bulkscanning-api:
     enabled: true
 
-payment-api:
+
+  liberata-keys-oauth2-client-secret:payment-api:
   java:
     ingressHost: ""
     releaseNameOverride: "{{ .Release.Name }}-payment-api"
     secrets:
       PCI_PAL_ACCOUNT_ID_CMC:
-        secretRef: pci-account-details
-        key: cmcAccountId
+        secretRef: pci-pal-account-id-cmc
+        key: key
       PCI_PAL_ACCOUNT_ID_PROBATE:
-        secretRef: pci-account-details
-        key: probateAccountId
+        secretRef: pci-pal-account-id-probate
+        key: key
       PCI_PAL_ACCOUNT_ID_DIVORCE:
-        secretRef: pci-account-details
-        key: divorceAccountId
+        secretRef: pci-pal-account-id-divorce
+        key: key
       PCI_PAL_API_URL:
-        secretRef: pci-account-details
-        key: pci-pal-api-url
+        secretRef: pci-pal-api-url
+        key: key
       PCI_PAL_API_KEY:
-        secretRef: pci-account-details
-        key: pci-pal-api-key
-      GOV_PAY_ACCOUNT_PROBATE:
-        secretRef: govpay-account-details
-        key: probate-account-id
-      GOV_PAY_ACCOUNT_DIVORCE:
-        secretRef: govpay-account-details
-        key: divorce-account-id
+        secretRef: pci-pal-api-key
+        key: key
+      GOV_PAY_KEYS_PROBATE:
+        secretRef: gov-pay-keys-probate
+        key: key
+      GOV_PAY_KEYS_DIVORCE:
+        secretRef: gov-pay-keys-divorce
+        key: key
+      GOV_PAY_KEYS_CMC:
+        secretRef: gov-pay-keys-cmc
+        key: key
+      GOV_PAY_KEYS_REFERENCE:
+        secretRef: gov-pay-keys-reference
+        key: key
+      LIBERATA_KEYS_OAUTH2_CLIENT_ID:
+        secretRef: liberata-keys-oauth2-client-id
+        key: key
+      LIBERATA_KEYS_OAUTH2_CLIENT_SECRET:
+        secretRef: liberata-keys-oauth2-client-secret
+        key: key
+      LIBERATA_KEYS_OAUTH2_USERNAME:
+        secretRef: liberata-keys-oauth2-username
+        key: key
+      LIBERATA_KEYS_OAUTH2_PASSWORD:
+        secretRef: liberata-keys-oauth2-password
+        key: key
     environment:
       SPRING_DATASOURCE_URL: "jdbc:postgresql://{{ tpl .Values.global.postgresqlHostName $}}:5432/payment"
       SPRING_DATASOURCE_USERNAME: "{{ .Values.global.postgresqlUsername}}"
@@ -108,6 +127,10 @@ ccpay-bubble-frontend:
       PAYHUB_API_URL: "http://{{ .Release.Name }}-payment-api"
       S2S_KEY: BBBBBBBBBB
       S2S_URL: "http://{{ .Release.Name }}-s2s"
+    secrets:
+      IDAM_CLIENT_SECRET:
+        secretRef: paybubble-idam-client-secret
+        key: key
 global:
   devMode: true
   postgresqlUsername: hmcts
