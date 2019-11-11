@@ -13,7 +13,7 @@ ccpay:
     enabled: true
 
 
-  liberata-keys-oauth2-client-secret:payment-api:
+payment-api:
   java:
     ingressHost: ""
     releaseNameOverride: "{{ .Release.Name }}-payment-api"
