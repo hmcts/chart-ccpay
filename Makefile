@@ -9,10 +9,9 @@ AKS_RESOURCE_GROUP := cnp-aks-rg
 AKS_CLUSTER := cnp-aks-cluster
 
 setup:
-	az account set --subscription ${ACR_SUBSCRIPTION}
-	az configure --defaults acr=${ACR}
-	az acr helm repo add --name ${ACR}
-	az aks get-credentials --resource-group ${AKS_RESOURCE_GROUP} --name ${AKS_CLUSTER}
+	helm repo add ${ACR} https://${ACR}.azurecr.io/helm/v1/repo
+	az aks get-credentials --resource-group ${AKS_RESOURCE_GROUP} --name ${AKS_CLUSTER} --subscription DCD-CNP-DEV
+	helm dependency update ${CHART}
 
 clean:
 	-helm delete --purge ${RELEASE}

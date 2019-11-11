@@ -58,6 +58,33 @@ rpe-service-auth-provider:
     environment:
       TESTING_SUPPORT_ENABLED: 'true'
       MICROSERVICEKEYS_API_GW: AAAAAAAAAAA
+
+fees-register-api:
+  java:
+    ingressHost: ""
+    releaseNameOverride: "{{ .Release.Name }}-fee-register"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://{{ tpl .Values.global.postgresqlHostName $}}:5432/fees-register"
+      POSTGRES_USERNAME: "{{ .Values.global.postgresqlUsername }}"
+      POSTGRES_PASSWORD: "{{ .Values.global.postgresqlPassword }}"
+      POSTGRES_CONNECTION_OPTIONS:
+      POSTGRES_HOST:
+      SPRING_LIQUIBASE_ENABLED: true
+      IDAM_CLIENT_BASE_URL: "{{ .Values.global.idamApiUrl }}"
+
+ccpay-bulkscanning-api:
+  image: "hmctspublic.azurecr.io/ccpay/bulkscanning-api:latest"
+  ingressHost: ""
+  releaseNameOverride: "{{ .Release.Name }}-bulk-scanning"
+  environment:
+    AUTH_PROVIDER_SERVICE_CLIENT_BASEURL: "{{ tpl .Values.global.s2sUrl $}}"
+    AUTH_IDAM_CLIENT_BASEURL: "{{ .Values.global.idamApiUrl }}"
+
+ccpay-bubble-frontend:
+  nodejs:
+    image: hmctspublic.azurecr.io/ccpay/bubble-frontend:latest
+    releaseNameOverride: "{{ .Release.Name }}-ccpay-bubble"
+
 global:
   devMode: true
   postgresqlUsername: hmcts
@@ -70,9 +97,10 @@ postgresql:
   resources:
     requests:
       cpu: 25m
-  #initdbScripts:
-    #init.sql: |-
-      #CREATE DATABASE "" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+  initdbScripts:
+    init.sql: |-
+      CREATE DATABASE "fees-register" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+      CREATE DATABASE "bspayment" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
 
   postgresqlUsername: hmcts
   postgresqlPassword: hmcts
