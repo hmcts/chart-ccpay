@@ -12,7 +12,6 @@ ccpay:
   ccpay-bulkscanning-api:
     enabled: true
 
-
 payment-api:
   java:
     ingressHost: ""

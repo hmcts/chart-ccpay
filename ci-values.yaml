@@ -11,9 +11,9 @@ payment-api:
         disabled: true
       PCI_PAL_API_KEY:
         disabled: true
-      GOV_PAY_ACCOUNT_PROBATE:
+      GOV_PAY_KEYS_PROBATE:
         disabled: true
-      GOV_PAY_ACCOUNT_DIVORCE:
+      GOV_PAY_KEYS_DIVORCE:
         disabled: true
       GOV_PAY_KEYS_CMC:
         disabled: true
