@@ -58,6 +58,7 @@ rpe-service-auth-provider:
     environment:
       TESTING_SUPPORT_ENABLED: 'true'
       MICROSERVICEKEYS_API_GW: AAAAAAAAAAA
+      MICROSERVICEKEYS_CCPAY_BUBBLE: BBBBBBBBBB
 
 fees-register-api:
   java:
@@ -87,7 +88,18 @@ ccpay-bubble-frontend:
   nodejs:
     image: hmctspublic.azurecr.io/ccpay/bubble-frontend:latest
     releaseNameOverride: "{{ .Release.Name }}-ccpay-bubble"
-
+    environment:
+      APPINSIGHTS_INSTRUMENTATIONKEY:
+      APPINSIGHTS_INSTRUMENTATIONKEY:
+      CCD_URL: "{{ .Values.global.ccdDataStoreApiUrl }}"
+      CCPAY_BULKSCAN_API_URL: "http://{{ .Release.Name }}-bulk-scanning"
+      FEE_JURISDICTION_URL: "http://{{ .Release.Name }}-fee-register/jurisdictions"
+      FEE_REGISTRATION_URL: "http://{{ .Release.Name }}-fee-register/fees-register/fees"
+      IDAM_API_URL: "{{ .Values.global.idamApiUrl }}"
+      IDAM_AUTHENTICATION_WEB_URL: "{{ .Values.global.idamWebUrl }}"
+      PAYHUB_API_URL: "http://{{ .Release.Name }}-payment-api"
+      S2S_KEY: BBBBBBBBBB
+      S2S_URL: "http://{{ .Release.Name }}-s2s"
 global:
   devMode: true
   postgresqlUsername: hmcts
