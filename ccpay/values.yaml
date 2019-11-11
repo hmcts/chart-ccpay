@@ -75,14 +75,11 @@ fees-register-api:
     ingressHost: ""
     releaseNameOverride: "{{ .Release.Name }}-fee-register"
     environment:
-      SPRING_DATASOURCE_URL: "jdbc:postgresql://{{ tpl .Values.global.postgresqlHostName $}}:5432/fees-register"
-      SPRING_DATASOURCE_USERNAME: "{{ .Values.global.postgresqlUsername }}"
-      SPRING_DATASOURCE_PASSWORD: "{{ .Values.global.postgresqlPassword }}"
-      POSTGRES_USERNAME: ""
-      POSTGRES_PASSWORD: ""
-      POSTGRES_NAME: ""
-      POSTGRES_CONNECTION_OPTIONS: ""
-      POSTGRES_HOST: ""
+      POSTGRES_HOST: "{{ tpl .Values.global.postgresqlHostName $}}"
+      POSTGRES_NAME: "fees-register"
+      POSTGRES_USERNAME: "{{ .Values.global.postgresqlUsername}}"
+      POSTGRES_PASSWORD: "{{ .Values.global.postgresqlPassword}}"
+      POSTGRES_CONNECTION_OPTIONS: "?sslmode=allow"
       SPRING_LIQUIBASE_ENABLED: true
       IDAM_CLIENT_BASE_URL: "{{ .Values.global.idamApiUrl }}"
 
