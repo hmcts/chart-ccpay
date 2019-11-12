@@ -85,7 +85,7 @@ rpe-service-auth-provider:
     environment:
       TESTING_SUPPORT_ENABLED: 'true'
       MICROSERVICEKEYS_API_GW: AAAAAAAAAAA
-      MICROSERVICEKEYS_CCPAY_BUBBLE: BBBBBBBBBB
+      CCPAY_BUBBLE_MICROSERVICE: ccpay_bubble
 
 fees-register-api:
   java:
