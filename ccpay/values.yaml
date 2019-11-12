@@ -118,7 +118,7 @@ ccpay-bubble-frontend:
         - "{{ .Values.global.bubbleUrl }}/oauth2/callback"
   ccpayfrontend:
     idampr:
-      enabled: true
+      enabled: false
   nodejs:
     image: hmctspublic.azurecr.io/ccpay/bubble-frontend:latest
     releaseNameOverride: "{{ .Release.Name }}-ccpay-bubble"
