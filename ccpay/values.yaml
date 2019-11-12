@@ -114,7 +114,7 @@ ccpay-bulkscanning-api:
 ccpay-bubble-frontend:
   idam-pr:
     redirect_uris:
-      pay-bubble:
+      paybubble:
         - "{{ .Values.global.bubbleUrl }}/oauth2/callback"
   ccpayfrontend:
     idampr:
