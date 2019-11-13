@@ -122,6 +122,7 @@ ccpay-bubble-frontend:
     idampr:
       enabled: false
   nodejs:
+    ingressHost: ""
     image: hmctspublic.azurecr.io/ccpay/bubble-frontend:latest
     releaseNameOverride: "{{ .Release.Name }}-ccpay-bubble"
     environment:
