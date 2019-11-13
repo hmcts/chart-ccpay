@@ -11,6 +11,8 @@ ccpay:
     enabled: true
   ccpay-bulkscanning-api:
     enabled: true
+  ccd:
+    enabled: true
 
 payment-api:
   java:
@@ -153,6 +155,7 @@ postgresql:
     init.sql: |-
       CREATE DATABASE "fees-register" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
       CREATE DATABASE "bspayment" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+      CREATE DATABASE "data-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
 
   postgresqlUsername: hmcts
   postgresqlPassword: hmcts
