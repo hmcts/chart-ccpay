@@ -39,8 +39,37 @@ ccpay-bubble-frontend:
     secrets:
       IDAM_CLIENT_SECRET:
         disabled: true
+
+ccd:
+  postgresql:
+    enabled: false
+  rpeServiceAuthProvider:
+    enabled: true
+  draftStoreService:
+    enabled: false
+  dmStore:
+    enabled: false
+  paymentApi:
+    enabled: false
+  managementWeb:
+    enabled: false
+  apiGatewayWeb:
+    enabled: false
+  adminWeb:
+    enabled: false
+  printService:
+    enabled: false
+  activityApi:
+    enabled: false
+  testStubsService:
+    enabled: false
+
+ccpay:
+  ccd:
+    enable: true
+
 global:
   idamApiUrl: https://idam-api.aat.platform.hmcts.net
   idamWebUrl: https://idam-web-public.aat.platform.hmcts.net
-  ccdDataStoreApiUrl: http://ccd-data-store-api-aat.service.core-compute-aat.internal
+  ccdDataStoreApiUrl: "http://ccd-data-store"
   bubbleUrl: https://chart-ccpay-bubble.service.core-compute-preview.internal
