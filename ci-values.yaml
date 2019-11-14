@@ -71,5 +71,5 @@ ccpay:
 global:
   idamApiUrl: https://idam-api.aat.platform.hmcts.net
   idamWebUrl: https://idam-web-public.aat.platform.hmcts.net
-  ccdDataStoreApiUrl: "http://ccd-data-store"
+  ccdDataStoreApiUrl: "http://{{ .Release.Name }}-ccd-data-store-api"
   bubbleUrl: https://chart-ccpay-bubble.service.core-compute-preview.internal
