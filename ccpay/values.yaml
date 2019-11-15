@@ -145,6 +145,7 @@ global:
   postgresqlPassword: hmcts
   s2sUrl: "http://{{ .Release.Name }}-s2s"
   postgresqlHostName: "{{ .Release.Name }}-postgresql"
+  ccdDataStoreApiUrl: "http://{{ .Release.Name }}-ccd-data-store-api"
 postgresql:
   persistence:
     enabled: false
