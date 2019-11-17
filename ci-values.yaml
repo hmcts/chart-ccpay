@@ -66,7 +66,7 @@ ccd:
 
 ccpay:
   ccd:
-    enable: true
+    enabled: true
 
 global:
   idamApiUrl: https://idam-api.aat.platform.hmcts.net
