@@ -31,8 +31,6 @@ payment-api:
       GOV_PAY_AUTH_KEY_CMC: la0ohpqa9er1bub2hddieeesc6sabbbqn4smkkve7s9ailn3n9d3hbnhc3
       GOV_PAY_AUTH_KEY_DIVORCE_FRONTEND: la0ohpqa9er1bub2hddieeesc6sabbbqn4smkkve7s9ailn3n9d3hbnhc3
       GOV_PAY_AUTH_KEY_PROBATE_FRONTEND: la0ohpqa9er1bub2hddieeesc6sabbbqn4smkkve7s9ailn3n9d3hbnhc3
-      #TODO use CCD Chart instead
-      CORE_CASE_DATA_API_URL: "{{ .Values.global.ccdDataStoreApiUrl }}"
 
 ccpay-bubble-frontend:
   nodejs:
@@ -71,5 +69,4 @@ ccpay:
 global:
   idamApiUrl: https://idam-api.aat.platform.hmcts.net
   idamWebUrl: https://idam-web-public.aat.platform.hmcts.net
-  ccdDataStoreApiUrl: "http://{{ .Release.Name }}-ccd-data-store-api"
   bubbleUrl: https://chart-ccpay-bubble.service.core-compute-preview.internal
