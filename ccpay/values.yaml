@@ -145,6 +145,11 @@ global:
   devMode: true
   postgresqlUsername: hmcts
   postgresqlPassword: hmcts
+  idamApiUrl: ""
+  idamWebUrl: ""
+  ccdApiGatewayIngress: ""
+  ccdCaseManagementWebIngress: ""
+  ccdAdminWebIngress: ""
   s2sUrl: "http://{{ .Release.Name }}-s2s"
   postgresqlHostName: "{{ .Release.Name }}-postgresql"
   ccdDataStoreApiUrl: "http://{{ .Release.Name }}-ccd-data-store-api"
