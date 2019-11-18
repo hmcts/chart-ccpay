@@ -42,7 +42,7 @@ ccd:
   postgresql:
     enabled: false
   rpeServiceAuthProvider:
-    enabled: true
+    enabled: false
   draftStoreService:
     enabled: false
   dmStore:
