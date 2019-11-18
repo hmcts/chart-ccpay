@@ -17,6 +17,8 @@ ccpay:
 ccd:
   paymentApi:
     enabled: false
+  s2s:
+    enabled: false
 
 payment-api:
   java:
