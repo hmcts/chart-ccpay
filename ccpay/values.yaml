@@ -11,6 +11,14 @@ ccpay:
     enabled: true
   ccpay-bulkscanning-api:
     enabled: true
+  ccd:
+    enabled: false
+
+ccd:
+  paymentApi:
+    enabled: false
+  s2s:
+    enabled: false
 
 payment-api:
   java:
@@ -62,9 +70,8 @@ payment-api:
       SPRING_DATASOURCE_PASSWORD: "{{ .Values.global.postgresqlPassword}}"
       SPRING_LIQUIBASE_ENABLED: true
 
-      #SPRING_PROFILES_ACTIVE: "liberataMock,callbackMock,ccdMock"
+      SPRING_PROFILES_ACTIVE: "liberataMock,callbackMock,ccdMock"
       #CALLBACK_PAYMENTS_CUTOFF_TIME_IN_MINUTES: 0
-
       RUN_DB_MIGRATION_ON_STARTUP: 'true'
       S2S_URL: "{{ tpl .Values.global.s2sUrl $}}"
 
@@ -72,10 +79,8 @@ payment-api:
 
       AUTH_IDAM_CLIENT_BASEURL: "{{ .Values.global.idamApiUrl }}"
       FEES_REGISTER_URL: "http://{{ .Release.Name }}-fee-register"
-      CORE_CASE_DATA_API_URL: "{{ .Values.global.ccdDataStoreApiUrl }}"
-
-      #to do - update the url
-      PCI_PAL_CALLBACK_URL: https://core-api-mgmt-hmctsdemo.azure-api.net/telephony-api/telephony/callback
+      CORE_CASE_DATA_API_URL: "{{ tpl .Values.global.ccdDataStoreApiUrl $}}"
+      PCI_PAL_CALLBACK_URL: https://core-api-mgmt-demodata.azure-api.net/telephony-api/telephony/callback
 
 rpe-service-auth-provider:
   java:
@@ -120,11 +125,12 @@ ccpay-bubble-frontend:
     idampr:
       enabled: false
   nodejs:
+    ingressHost: ""
     image: hmctspublic.azurecr.io/ccpay/bubble-frontend:latest
     releaseNameOverride: "{{ .Release.Name }}-ccpay-bubble"
     environment:
       APPINSIGHTS_INSTRUMENTATIONKEY:
-      CCD_URL: "{{ .Values.global.ccdDataStoreApiUrl }}"
+      CCD_URL: "{{ tpl .Values.global.ccdDataStoreApiUrl $}}"
       CCPAY_BULKSCAN_API_URL: "http://{{ .Release.Name }}-bulk-scanning"
       FEE_JURISDICTION_URL: "http://{{ .Release.Name }}-fee-register/jurisdictions"
       FEE_REGISTRATION_URL: "http://{{ .Release.Name }}-fee-register/fees-register/fees"
@@ -141,8 +147,14 @@ global:
   devMode: true
   postgresqlUsername: hmcts
   postgresqlPassword: hmcts
+  idamApiUrl: ""
+  idamWebUrl: ""
+  ccdApiGatewayIngress: ""
+  ccdCaseManagementWebIngress: ""
+  ccdAdminWebIngress: ""
   s2sUrl: "http://{{ .Release.Name }}-s2s"
   postgresqlHostName: "{{ .Release.Name }}-postgresql"
+  ccdDataStoreApiUrl: "http://{{ .Release.Name }}-ccd-data-store-api"
 postgresql:
   persistence:
     enabled: false
@@ -153,6 +165,10 @@ postgresql:
     init.sql: |-
       CREATE DATABASE "fees-register" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
       CREATE DATABASE "bspayment" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+      CREATE DATABASE "data-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+      CREATE DATABASE "definition-store" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+      CREATE DATABASE "user-profile" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
+      CREATE DATABASE "draftstore" WITH OWNER = hmcts ENCODING = 'UTF-8' CONNECTION LIMIT = -1;
 
   postgresqlUsername: hmcts
   postgresqlPassword: hmcts
