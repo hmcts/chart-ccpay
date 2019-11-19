@@ -61,6 +61,8 @@ ccd:
     enabled: false
   testStubsService:
     enabled: false
+  emAnnotation:
+    enabled: false
 
 ccpay:
   ccd:
