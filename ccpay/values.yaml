@@ -70,7 +70,7 @@ payment-api:
       SPRING_DATASOURCE_PASSWORD: "{{ .Values.global.postgresqlPassword}}"
       SPRING_LIQUIBASE_ENABLED: true
 
-      #SPRING_PROFILES_ACTIVE: "liberataMock,callbackMock,ccdMock"
+      SPRING_PROFILES_ACTIVE: "liberataMock,callbackMock,ccdMock"
       #CALLBACK_PAYMENTS_CUTOFF_TIME_IN_MINUTES: 0
       RUN_DB_MIGRATION_ON_STARTUP: 'true'
       S2S_URL: "{{ tpl .Values.global.s2sUrl $}}"
