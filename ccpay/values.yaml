@@ -79,7 +79,7 @@ payment-api:
 
       AUTH_IDAM_CLIENT_BASEURL: "{{ .Values.global.idamApiUrl }}"
       FEES_REGISTER_URL: "http://{{ .Release.Name }}-fee-register"
-      CORE_CASE_DATA_API_URL: "{{ tpl .Values.global.ccdDataStoreApiUrl $}}"
+      CORE_CASE_DATA_API_URL: "{{ tpl .Values.global.ccdDataStoreUrl $}}"
       PCI_PAL_CALLBACK_URL: https://core-api-mgmt-demodata.azure-api.net/telephony-api/telephony/callback
 
 rpe-service-auth-provider:
@@ -130,7 +130,7 @@ ccpay-bubble-frontend:
     releaseNameOverride: "{{ .Release.Name }}-ccpay-bubble"
     environment:
       APPINSIGHTS_INSTRUMENTATIONKEY:
-      CCD_URL: "{{ tpl .Values.global.ccdDataStoreApiUrl $}}"
+      CCD_URL: "{{ tpl .Values.global.ccdDataStoreUrl $}}"
       CCPAY_BULKSCAN_API_URL: "http://{{ .Release.Name }}-bulk-scanning"
       FEE_JURISDICTION_URL: "http://{{ .Release.Name }}-fee-register/jurisdictions"
       FEE_REGISTRATION_URL: "http://{{ .Release.Name }}-fee-register/fees-register/fees"
@@ -154,7 +154,7 @@ global:
   ccdAdminWebIngress: ""
   s2sUrl: "http://{{ .Release.Name }}-s2s"
   postgresqlHostName: "{{ .Release.Name }}-postgresql"
-  ccdDataStoreApiUrl: "http://{{ .Release.Name }}-ccd-data-store-api"
+  ccdDataStoreUrl: "http://{{ .Release.Name }}-ccd-data-store-api"
 postgresql:
   persistence:
     enabled: false
