@@ -12,7 +12,7 @@ ccpay:
   ccpay-bulkscanning-api:
     enabled: true
   ccd:
-    enabled: false
+    enabled: true
 
 ccd:
   paymentApi:
