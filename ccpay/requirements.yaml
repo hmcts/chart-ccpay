@@ -28,7 +28,7 @@ dependencies:
     version: ~0.0.5
     repository: '@hmctspublic'
     condition: ccpay.ccpay-bulkscanning-api.enabled
-
+    
   - name: ccd
     version: 4.0.0-rc.16
     repository: '@hmctspublic'
