@@ -15,10 +15,15 @@ ccpay:
     enabled: true
 
 ccd:
-  paymentApi:
-    enabled: false
-  s2s:
-    enabled: false
+  ccd:
+    ccpay:
+      enabled: false
+    definitionImporter:
+      enabled: false
+    s2s:
+      enabled: false
+    postgresql:
+      enabled: false
 
 payment-api:
   java:
