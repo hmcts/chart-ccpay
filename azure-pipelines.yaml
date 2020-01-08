@@ -25,7 +25,7 @@ jobs:
           chartName: ccpay
           chartReleaseName: chart-ccpay-ci-release
           chartNamespace: fees-pay
-          helmInstallTimeout: "600"
+          helmInstallTimeout: "1000"
 
   - job: Release
     # Make sure we have a tag to run this job
