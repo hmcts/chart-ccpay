@@ -41,7 +41,9 @@ ccpay-bubble-frontend:
 ccd:
   postgresql:
     enabled: false
-  rpeServiceAuthProvider:
+  s2s:
+    enabled: false
+  definitionImporter:
     enabled: false
   draftStoreService:
     enabled: false

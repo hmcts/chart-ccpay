@@ -16,7 +16,9 @@ ccpay:
 
 ccd:
   ccd:
-    paymentApi:
+    ccpay:
+      enabled: false
+    definitionImporter:
       enabled: false
     s2s:
       enabled: false
