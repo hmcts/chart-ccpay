@@ -47,6 +47,8 @@ ccd:
     enabled: false
   draftStoreService:
     enabled: false
+  userProfileImporter:
+    enabled: false
   dmStore:
     enabled: false
   paymentApi:
