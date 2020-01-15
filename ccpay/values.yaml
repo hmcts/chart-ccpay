@@ -122,6 +122,7 @@ ccpay-bulkscanning-api:
       SPRING_DATASOURCE_URL: "jdbc:postgresql://{{ tpl .Values.global.postgresqlHostName $}}:5432/bspayment"
       POSTGRES_USERNAME: "{{ .Values.global.postgresqlUsername }}"
       POSTGRES_PASSWORD: "{{ .Values.global.postgresqlPassword }}"
+      SPRING_LIQUIBASE_ENABLED: true
 
 ccpay-bubble-frontend:
   idam-pr:
