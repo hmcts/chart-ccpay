@@ -21,7 +21,6 @@ jobs:
     steps:
       - template: steps/charts/validate.yaml@cnp-library
         parameters:
-          helmVersion: "2.14.3"
           chartName: ccpay
           chartReleaseName: chart-ccpay-ci-release
           chartNamespace: fees-pay
@@ -40,6 +39,5 @@ jobs:
     steps:
       - template: steps/charts/release.yaml@cnp-library
         parameters:
-          helmVersion: "2.14.3"
           chartName: ccpay
           chartReleaseName: chart-ccpay
